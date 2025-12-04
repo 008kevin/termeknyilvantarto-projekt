@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Ritter Sport Bunter Mini Mix",
+    "ean": 4000417604811,
+    "price": 12790,
+    "warehouse": 36
+  },
+  {
+    "id": 2,
+    "name": "Fractal Design Torrent Compact White RGB",
+    "ean": 7340172705239,
+    "price": 12790,
+    "warehouse": 4
+  }
+]
