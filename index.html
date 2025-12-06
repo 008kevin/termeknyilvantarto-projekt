@@ -150,12 +150,12 @@
         let warehouse = Number(warehouseInput.value);
 
         // validation
-        if (!validateInput(nameInput.value, eanInput.value, priceInput.value, warehouseInput.value)) {
+        if (!validateInput(nameInput.value.trim(), eanInput.value.trim(), price, warehouse)) {
             return;
         }
 
-        product.name = nameInput.value;
-        product.ean = eanInput.value;
+        product.name = nameInput.value.trim();
+        product.ean = eanInput.value.trim();
         product.price = price;
         product.warehouse = warehouse;
 
@@ -213,16 +213,16 @@
             // set function to edit done button
             editDoneButton.onclick = function () {
                 // set back to default if removed
-                if (editNameInput.value.length === 0) {
+                if (editNameInput.value.trim().length === 0) {
                     editNameInput.value = object.name;
                 }
-                if (editEanInput.value.length === 0) {
+                if (editEanInput.value.trim().length === 0) {
                     editEanInput.value = object.ean;
                 }
-                if (editPriceInput.value.length === 0) {
+                if (editPriceInput.value.trim().length === 0) {
                     editPriceInput.value = object.price;
                 }
-                if (editWarehouseInput.value.length === 0) {
+                if (editWarehouseInput.value.trim().length === 0) {
                     editWarehouseInput.value = object.warehouse;
                 }
 
@@ -230,7 +230,7 @@
                 let warehouse = Number(editWarehouseInput.value);
 
                 // validate
-                if (!validateInput(editNameInput.value, editEanInput.value, price, warehouse)) {
+                if (!validateInput(editNameInput.value.trim(), editEanInput.value.trim(), price, warehouse)) {
                     return;
                 }
 
@@ -268,7 +268,7 @@
         let errors = [];
 
         // name
-        if (!(name.length > 0)) {
+        if (!(name.trim().length > 0)) {
             errors.push("A név mező nem lehet üres!");
         }
 
