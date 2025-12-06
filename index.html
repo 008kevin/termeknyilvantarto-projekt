@@ -129,7 +129,6 @@
     });
 
     // populate table
-    console.log(data)
     data.forEach(element => {
         addLine(element);
     });
@@ -166,16 +165,16 @@
             // set function to edit done button
             editDoneButton.onclick = function() {
                 // set back to default if removed
-                if (editNameInput.value == null) {
+                if (editNameInput.value.length === 0) {
                     editNameInput.value = object.name;
                 }
-                if (editEanInput.value == null) {
+                if (editEanInput.value.length === 0) {
                     editEanInput.value = object.ean;
                 }
-                if (editPriceInput.value == null) {
+                if (editPriceInput.value.length === 0) {
                     editPriceInput.value = object.price;
                 }
-                if (editWarehouseInput.value == null) {
+                if (editWarehouseInput.value.length === 0) {
                     editWarehouseInput.value = object.warehouse;
                 }
 
