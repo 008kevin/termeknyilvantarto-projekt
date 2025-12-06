@@ -88,6 +88,9 @@
         }
     ]
 
+    const currencyFormatOptions = { style: "currency", currency: "HUF" };
+    const currencyFormat = new Intl.NumberFormat("hu-HU", currencyFormatOptions);
+
     const table = document.getElementById("products");
 
     const nameInput = document.getElementById("nameInput");
@@ -153,7 +156,7 @@
 
         row.insertCell(-1).textContent = object.name;
         row.insertCell(-1).textContent = object.ean;
-        row.insertCell(-1).textContent = object.price + "Ft";
+        row.insertCell(-1).textContent = currencyFormat.format(object.price);
         row.insertCell(-1).textContent = object.warehouse;
         if (object.warehouse < 10) {
             row.cells[row.cells.length - 1].classList.add("warehouseWarning");
@@ -174,7 +177,7 @@
             editEanInput.placeholder = object.ean;
 
             editPriceInput.value = object.price;
-            editPriceInput.placeholder = object.price;
+            editPriceInput.placeholder = currencyFormat.format(object.price);
 
             editWarehouseInput.value = object.warehouse;
             editWarehouseInput.placeholder = object.warehouse;
@@ -208,7 +211,7 @@
                 object.name = editNameInput.value;
                 row.cells[1].textContent = editEanInput.value;
                 object.ean = editEanInput.value;
-                row.cells[2].textContent = price + "Ft";
+                row.cells[2].textContent = currencyFormat.format(price);
                 object.price = price
                 row.cells[3].textContent = warehouse;
                 object.warehouse = warehouse;
