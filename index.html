@@ -5,17 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termékek nyilvántartása</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <h1>Termékek</h1>
     <table id="products">
+        <thead>
         <tr>
             <th>Név</th>
             <th>EAN - International Article Number</th>
             <th>Ár - Ft</th>
             <th>Raktáron - db</th>
         </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" id="nameInput"></td>
+                <td><input type="text" id="eanInput"></td>
+                <td><input type="number" id="priceInput"></td>
+                <td><input type="number" id="warehouseInput"></td>
+                <td><button class="addButton"><i class="fa fa-plus"></i></button></td>
+            </tr>
+        </tbody>
     </table>
 </body>
 
@@ -46,11 +59,29 @@
 
 
     function addLine(object) {
-        let row = table.insertRow(-1);
+        let row = table.insertRow(table.rows.length - 1);
+
         row.insertCell(-1).textContent = object.name;
         row.insertCell(-1).innerHTML = object.ean;
         row.insertCell(-1).textContent = object.price + "Ft";
         row.insertCell(-1).textContent = object.warehouse;
+
+        let editButton = `<button id="edit-${object.id}"><i class="fa fa-pencil"></i></button>`;
+        let deleteButton = `<button id="delete-${object.id}"><i class="fa fa-trash"></i></button>`;
+
+        row.insertCell(-1).innerHTML = editButton + deleteButton;
+
+        let editDOMButton = document.getElementById(`edit-${object.id}`);
+        editDOMButton.addEventListener("click", () => {
+            alert(1);
+        });
+
+        let deleteDOMButton = document.getElementById(`delete-${object.id}`);
+        deleteDOMButton.addEventListener("click", () => {
+            data.splice(data.findIndex((e) => e.id == object.id), 1);
+            table.deleteRow(row.rowIndex)
+            console.log(data);
+        });
     }
 </script>
 </html>
