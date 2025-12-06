@@ -35,8 +35,10 @@
                 <tr>
                     <td><input type="text" id="nameInput" placeholder="Név" class="form-control"></td>
                     <td><input type="text" id="eanInput" placeholder="EAN" class="form-control"></td>
-                    <td><input type="number" min="0" step="1000" id="priceInput" placeholder="Ár" class="form-control"></td>
-                    <td><input type="number" min="0" id="warehouseInput" placeholder="Raktáron - db" class="form-control"></td>
+                    <td><input type="number" min="0" step="1000" id="priceInput" placeholder="Ár" class="form-control">
+                    </td>
+                    <td><input type="number" min="0" id="warehouseInput" placeholder="Raktáron - db"
+                            class="form-control"></td>
                     <td><button id="addButton" class="btn btn-primary w-100"><i class="fa fa-plus"></i></button></td>
                 </tr>
             </tbody>
@@ -258,8 +260,11 @@
         // delete button
         let deleteDOMButton = document.getElementById(`delete-${object.id}`);
         deleteDOMButton.addEventListener("click", () => {
-            data.splice(data.findIndex((e) => e.id == object.id), 1);
-            table.deleteRow(row.rowIndex)
+            let dataIndex = data.findIndex((e) => e.id == object.id);
+            if (confirm(`Biztos hogy törölni szeretné a következőt: ${data[dataIndex].name}`)) {
+                data.splice(dataIndex, 1);
+                table.deleteRow(row.rowIndex)
+            }
         });
     }
 
