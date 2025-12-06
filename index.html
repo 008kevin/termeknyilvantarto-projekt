@@ -26,31 +26,89 @@
                 <td><input type="text" id="eanInput"></td>
                 <td><input type="number" id="priceInput"></td>
                 <td><input type="number" id="warehouseInput"></td>
-                <td><button class="addButton"><i class="fa fa-plus"></i></button></td>
+                <td><button id="addButton"><i class="fa fa-plus"></i></button></td>
             </tr>
         </tbody>
     </table>
+
+    <dialog id="editDialog">
+        <h1>Editing</h1>
+    </dialog>
 </body>
 
 <script>
     const data = [
         {
-            "id": 1,
+            "id": 0,
             "name": "Ritter Sport Bunter Mini Mix",
             "ean": 4000417604811,
             "price": 12790,
             "warehouse": 36
         },
         {
-            "id": 2,
+            "id": 1,
             "name": "Fractal Design Torrent Compact White RGB",
-            "ean": 7340172705239,
+            "ean": "7340172705239",
             "price": 67126,
             "warehouse": 4
         }
     ]
 
     const table = document.getElementById("products");
+
+    const nameInput = document.getElementById("nameInput");
+    const eanInput = document.getElementById("eanInput");
+    const priceInput = document.getElementById("priceInput");
+    const warehouseInput = document.getElementById("warehouseInput");
+    const addButton = document.getElementById("addButton");
+
+    addButton.addEventListener("click", () => {
+        let product = {};
+
+        let id = 0;
+        while (data.find(x => x.id === id) !== undefined) {
+            id++;
+        }
+        product.id = id;
+
+        if (!(nameInput.value.length > 0)) {
+            alert("A név mező nem lehet üres!");
+            return;
+        }
+        product.name = nameInput.value;
+
+        if (eanInput.value.length != 13) {
+            alert("Az EAN számnak 13 karakternek kell lennie!");
+            return;
+        }
+        if (isNaN(Number(eanInput.value))) {
+            alert("Az EAN szám csak számokat tartalmazhat!");
+            return;
+        }
+        product.ean = eanInput.value;
+
+        let price = Number(priceInput.value);
+        if (isNaN(price) || price <= 0) {
+            alert("Az árnak 0-nál nagyobb számnak kell lennie!");
+            return;
+        }
+        product.price = price;
+
+        let warehouse = Number(warehouseInput.value);
+        if (isNaN(warehouse) || warehouse < 0) {
+            alert("A raktáron darabszámnak 0 vagy nagyobb számnak kell lennie!");
+            return;
+        }
+        product.warehouse = warehouse;
+
+        data.push(product);
+        addLine(product);
+
+        nameInput.value = null;
+        eanInput.value = null;
+        priceInput.value = null;
+        warehouseInput.value = null;
+    });
 
     console.log(data)
     data.forEach(element => {
