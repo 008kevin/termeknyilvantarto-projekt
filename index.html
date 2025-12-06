@@ -21,28 +21,32 @@
 <body>
     <div class="container">
         <h1 class="text-center my-5">Termékek</h1>
-        <table id="products" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Név</th>
-                    <th>EAN - International Article Number</th>
-                    <th>Ár - Ft</th>
-                    <th>Raktáron - db</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" id="nameInput" placeholder="Név" class="form-control"></td>
-                    <td><input type="text" id="eanInput" placeholder="EAN" class="form-control"></td>
-                    <td><input type="number" min="0" step="1000" id="priceInput" placeholder="Ár" class="form-control">
-                    </td>
-                    <td><input type="number" min="0" id="warehouseInput" placeholder="Raktáron - db"
-                            class="form-control"></td>
-                    <td><button id="addButton" class="btn btn-primary w-100"><i class="fa fa-plus"></i></button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="overflow-x-scroll">
+            <table id="products" class="table table-bordered table-striped" style="min-width: 810px;">
+                <thead>
+                    <tr>
+                        <th>Név</th>
+                        <th>EAN - International Article Number</th>
+                        <th>Ár - Ft</th>
+                        <th>Raktáron - db</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" id="nameInput" placeholder="Név" class="form-control"></td>
+                        <td><input type="text" id="eanInput" placeholder="EAN" class="form-control"></td>
+                        <td><input type="number" min="0" step="1000" id="priceInput" placeholder="Ár"
+                                class="form-control">
+                        </td>
+                        <td><input type="number" min="0" id="warehouseInput" placeholder="Raktáron - db"
+                                class="form-control"></td>
+                        <td><button id="addButton" class="btn btn-primary w-100"><i class="fa fa-plus"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <dialog id="editDialog" class="p-4">
