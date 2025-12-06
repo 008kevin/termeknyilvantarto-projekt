@@ -4,18 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termékek nyilvántartása</title>
+
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <h1>Termékek</h1>
     <table id="products">
-        <thead>
-            <tr>
-                <th>Név</th>
-                <th>EAN - International Article Number</th>
-                <th>Ár - Ft</th>
-                <th>Raktáron - db</th>
-            </tr>
-        </thead>
+        <tr>
+            <th>Név</th>
+            <th>EAN - International Article Number</th>
+            <th>Ár - Ft</th>
+            <th>Raktáron - db</th>
+        </tr>
     </table>
 </body>
+
+<script>
+    const data = [
+        {
+            "id": 1,
+            "name": "Ritter Sport Bunter Mini Mix",
+            "ean": 4000417604811,
+            "price": 12790,
+            "warehouse": 36
+        },
+        {
+            "id": 2,
+            "name": "Fractal Design Torrent Compact White RGB",
+            "ean": 7340172705239,
+            "price": 67126,
+            "warehouse": 4
+        }
+    ]
+
+    const table = document.getElementById("products");
+
+    console.log(data)
+    data.forEach(element => {
+        addLine(element);
+    });
+
+
+    function addLine(object) {
+        let row = table.insertRow(-1);
+        row.insertCell(-1).textContent = object.name;
+        row.insertCell(-1).innerHTML = object.ean;
+        row.insertCell(-1).textContent = object.price + "Ft";
+        row.insertCell(-1).textContent = object.warehouse;
+    }
+</script>
 </html>

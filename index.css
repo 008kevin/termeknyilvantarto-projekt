@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&display=swap');
+
+table {
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px solid #000000;
+    padding: 10px;
+}
+
+td:nth-child(2) {
+    font-family: "Libre Barcode 39 Text";
+    font-size: 3em;
+}
