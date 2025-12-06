@@ -32,7 +32,27 @@
     </table>
 
     <dialog id="editDialog">
-        <h1>Editing</h1>
+        <h1>Szerkesztés</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>EAN - International Article Number</th>
+                    <th>Ár - Ft</th>
+                    <th>Raktáron - db</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" id="editNameInput"></td>
+                    <td><input type="text" id="editEanInput"></td>
+                    <td><input type="number" id="editPriceInput"></td>
+                    <td><input type="number" id="editWarehouseInput"></td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="editCancelButton">Elvetés</button>
+        <button id="editDoneButton">Kész</button>
     </dialog>
 </body>
 
@@ -62,43 +82,36 @@
     const warehouseInput = document.getElementById("warehouseInput");
     const addButton = document.getElementById("addButton");
 
+    const editDialog = document.getElementById("editDialog");
+    const editNameInput = document.getElementById("editNameInput");
+    const editEanInput = document.getElementById("editEanInput");
+    const editPriceInput = document.getElementById("editPriceInput");
+    const editWarehouseInput = document.getElementById("editWarehouseInput");
+    const editCancelButton = document.getElementById("editCancelButton");
+    const editDoneButton = document.getElementById("editDoneButton");
+
+    // Add new data
     addButton.addEventListener("click", () => {
         let product = {};
 
+        // find first available id
         let id = 0;
         while (data.find(x => x.id === id) !== undefined) {
             id++;
         }
         product.id = id;
 
-        if (!(nameInput.value.length > 0)) {
-            alert("A név mező nem lehet üres!");
-            return;
-        }
-        product.name = nameInput.value;
-
-        if (eanInput.value.length != 13) {
-            alert("Az EAN számnak 13 karakternek kell lennie!");
-            return;
-        }
-        if (isNaN(Number(eanInput.value))) {
-            alert("Az EAN szám csak számokat tartalmazhat!");
-            return;
-        }
-        product.ean = eanInput.value;
-
         let price = Number(priceInput.value);
-        if (isNaN(price) || price <= 0) {
-            alert("Az árnak 0-nál nagyobb számnak kell lennie!");
-            return;
-        }
-        product.price = price;
-
         let warehouse = Number(warehouseInput.value);
-        if (isNaN(warehouse) || warehouse < 0) {
-            alert("A raktáron darabszámnak 0 vagy nagyobb számnak kell lennie!");
+
+        // validation
+        if (!validateInput(nameInput.value, eanInput.value, priceInput.value, warehouseInput.value)) {
             return;
         }
+
+        product.name = nameInput.value;
+        product.ean = eanInput.value;
+        product.price = price;
         product.warehouse = warehouse;
 
         data.push(product);
@@ -110,17 +123,23 @@
         warehouseInput.value = null;
     });
 
+    // edit cancel button
+    editCancelButton.addEventListener("click", () => {
+        editDialog.close();
+    });
+
+    // populate table
     console.log(data)
     data.forEach(element => {
         addLine(element);
     });
 
-
+    // helper for adding lines
     function addLine(object) {
         let row = table.insertRow(table.rows.length - 1);
 
         row.insertCell(-1).textContent = object.name;
-        row.insertCell(-1).innerHTML = object.ean;
+        row.insertCell(-1).textContent = object.ean;
         row.insertCell(-1).textContent = object.price + "Ft";
         row.insertCell(-1).textContent = object.warehouse;
 
@@ -129,17 +148,102 @@
 
         row.insertCell(-1).innerHTML = editButton + deleteButton;
 
+        // edit button
         let editDOMButton = document.getElementById(`edit-${object.id}`);
         editDOMButton.addEventListener("click", () => {
-            alert(1);
+            editNameInput.value = object.name;
+            editNameInput.placeholder = object.name;
+
+            editEanInput.value = object.ean;
+            editEanInput.placeholder = object.ean;
+
+            editPriceInput.value = object.price;
+            editPriceInput.placeholder = object.price;
+
+            editWarehouseInput.value = object.warehouse;
+            editWarehouseInput.placeholder = object.warehouse;
+
+            // set function to edit done button
+            editDoneButton.onclick = function() {
+                // set back to default if removed
+                if (editNameInput.value == null) {
+                    editNameInput.value = object.name;
+                }
+                if (editEanInput.value == null) {
+                    editEanInput.value = object.ean;
+                }
+                if (editPriceInput.value == null) {
+                    editPriceInput.value = object.price;
+                }
+                if (editWarehouseInput.value == null) {
+                    editWarehouseInput.value = object.warehouse;
+                }
+
+                let price = Number(editPriceInput.value);
+                let warehouse = Number(editWarehouseInput.value);
+
+                // validate
+                if (!validateInput(editNameInput.value, editEanInput.value, price, warehouse)) {
+                    return;
+                }
+
+                // change values
+                row.cells[0].textContent = editNameInput.value;
+                object.name = editNameInput.value;
+                row.cells[1].textContent = editEanInput.value;
+                object.ean = editEanInput.value;
+                row.cells[2].textContent = price + "Ft";
+                object.price = price
+                row.cells[3].textContent = warehouse;
+                object.warehouse = warehouse;
+
+                editDialog.close();
+            };
+
+            editDialog.showModal();
         });
 
+        // delete button
         let deleteDOMButton = document.getElementById(`delete-${object.id}`);
         deleteDOMButton.addEventListener("click", () => {
             data.splice(data.findIndex((e) => e.id == object.id), 1);
             table.deleteRow(row.rowIndex)
             console.log(data);
         });
+    }
+
+    // helper for error checking
+    function validateInput(name, ean, price, warehouse) {
+        let errors = [];
+
+        // name
+        if (!(name.length > 0)) {
+            errors.push("A név mező nem lehet üres!");
+        }
+
+        // ean
+        if (ean.length != 13) {
+            errors.push("Az EAN számnak 13 karakternek kell lennie!");
+        }
+        if (isNaN(Number(ean))) {
+            errors.push("Az EAN szám csak számokat tartalmazhat!");
+        }
+
+        // price
+        if (isNaN(price) || price <= 0) {
+            errors.push("Az árnak 0-nál nagyobb számnak kell lennie!");
+        }
+
+        // warehouse
+        if (isNaN(warehouse) || warehouse < 0) {
+            errors.push("A raktáron darabszámnak 0 vagy nagyobb számnak kell lennie!");
+        }
+
+        if (errors.length > 0) {
+            alert(errors.join("\n"));
+            return false;
+        }
+        return true;
     }
 </script>
 </html>
