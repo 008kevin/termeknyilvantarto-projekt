@@ -6,6 +6,9 @@ tr:not(tr:last-child) > td:nth-child(2) {
     line-height: 1em;
     text-align: center;
 }
+tr:not(tr:last-child) > td:nth-child(2):hover {
+    font-size: 10em;
+}
 
 #editDialog {
     border: none;
