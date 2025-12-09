@@ -253,6 +253,9 @@
         if (isNaN(Number(ean))) {
             errors.push("Az EAN szám csak számokat tartalmazhat!");
         }
+        if (data.filter((x) => x.ean == ean).length != 0) {
+            errors.push("Ezt az EAN számot már tartalmazza az egyik termék!");
+        }
 
         // price
         if (isNaN(price) || price <= 0) {
