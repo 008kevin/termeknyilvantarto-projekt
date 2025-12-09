@@ -10,6 +10,10 @@ tr:not(tr:last-child) > td:nth-child(2):hover {
     font-size: 10em;
 }
 
+tr:last-child > td:nth-child(5) {
+    vertical-align: middle;
+}
+
 #editDialog {
     border: none;
     box-shadow: 0 30px 50px rgb(0, 0, 0, 0.2);

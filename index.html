@@ -34,14 +34,33 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="text" id="nameInput" placeholder="Név" class="form-control"></td>
-                        <td><input type="text" id="eanInput" placeholder="EAN" class="form-control"></td>
-                        <td><input type="number" min="0" step="1000" id="priceInput" placeholder="Ár"
-                                class="form-control">
+                        <td>
+                            <div class="form-floating">
+                                <input type="text" id="nameInput" placeholder="Név" class="form-control">
+                                <label for="nameInput">Név</label>
+                            </div>
                         </td>
-                        <td><input type="number" min="0" id="warehouseInput" placeholder="Raktáron - db"
-                                class="form-control"></td>
-                        <td><button id="addButton" class="btn btn-primary w-100"><i class="fa fa-plus"></i></button>
+                        <td>
+                            <div class="form-floating">
+                                <input type="text" id="eanInput" placeholder="EAN" class="form-control">
+                                <label for="eanInput">EAN</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-floating">
+                                <input type="number" min="0" step="1000" id="priceInput" placeholder="Ár" class="form-control">
+                                <label for="priceInput">Ár - Ft</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-floating">
+                                <input type="number" min="0" id="warehouseInput" placeholder="Raktáron - db" class="form-control">
+                                <label for="warehouseInput">Raktáron - db</label>
+                            </div>
+                        </td>
+
+                        <td>
+                            <button id="addButton" class="btn btn-primary w-100"><i class="fa fa-plus"></i></button>
                         </td>
                     </tr>
                 </tbody>
