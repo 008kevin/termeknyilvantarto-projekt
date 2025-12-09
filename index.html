@@ -77,50 +77,11 @@
 </body>
 
 <script>
-    const data = [
-        {
-            "id": 0,
-            "name": "Ritter Sport Bunter Mini Mix",
-            "ean": "4000417604811",
-            "price": 12790,
-            "warehouse": 36
-        },
-        {
-            "id": 1,
-            "name": "Fractal Design Torrent Compact White RGB",
-            "ean": "7340172705239",
-            "price": 67126,
-            "warehouse": 4
-        },
-        {
-            "id": 2,
-            "name": "Honeywell Xenon 1950 SR - USB kit",
-            "ean": "8595149009677",
-            "price": 50690,
-            "warehouse": 23
-        },
-        {
-            "id": 3,
-            "name": "Logitech MX Master 3S Graphite",
-            "ean": "5099206103726",
-            "price": 38990,
-            "warehouse": 12
-        },
-        {
-            "id": 4,
-            "name": "Samsung 980 PRO 1TB NVMe SSD",
-            "ean": "8806090295546",
-            "price": 46990,
-            "warehouse": 8
-        },
-        {
-            "id": 5,
-            "name": "TP-Link Archer AX55 Wi-Fi 6 Router",
-            "ean": "4897098682678",
-            "price": 34990,
-            "warehouse": 19
-        }
-    ]
+    if (localStorage.getItem("data") == null) {
+        localStorage.setItem("data", "[]")
+    }
+
+    const data = JSON.parse(localStorage.getItem("data"));
 
     const currencyFormatOptions = { style: "currency", currency: "HUF" };
     const currencyFormat = new Intl.NumberFormat("hu-HU", currencyFormatOptions);
@@ -172,6 +133,8 @@
         eanInput.value = null;
         priceInput.value = null;
         warehouseInput.value = null;
+
+        saveData();
     });
 
     // edit cancel button
@@ -256,6 +219,7 @@
                 }
 
                 editDialog.close();
+                saveData();
             };
 
             editDialog.showModal();
@@ -268,6 +232,7 @@
             if (confirm(`Biztos hogy törölni szeretné a következőt: ${data[dataIndex].name}`)) {
                 data.splice(dataIndex, 1);
                 table.deleteRow(row.rowIndex)
+                saveData();
             }
         });
     }
@@ -304,6 +269,17 @@
             return false;
         }
         return true;
+    }
+
+    // save data to localstorage
+    function saveData() {
+        localStorage.setItem("data", JSON.stringify(data));
+    }
+
+    function saveExample() {
+        localStorage.setItem("data", '[{"id": 0,"name": "Ritter Sport Bunter Mini Mix","ean": "4000417604811","price": 12790,"warehouse": 36},{"id": 1,"name": "Fractal Design Torrent Compact White RGB","ean": "7340172705239","price": 67126,"warehouse": 4},{"id": 2,"name": "Honeywell Xenon 1950 SR - USB kit","ean": "8595149009677","price": 50690,"warehouse": 23},{"id": 3,"name": "Logitech MX Master 3S Graphite","ean": "5099206103726","price": 38990,"warehouse": 12},{"id": 4,"name": "Samsung 980 PRO 1TB NVMe SSD","ean": "8806090295546","price": 46990,"warehouse": 8},{"id": 5,"name": "TP-Link Archer AX55 Wi-Fi 6 Router","ean": "4897098682678","price": 34990,"warehouse": 19}]')
+    
+        window.location.reload();
     }
 </script>
 
