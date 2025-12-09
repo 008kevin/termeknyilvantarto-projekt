@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+EAN13+Text&display=swap');
 
 tr:not(tr:last-child) > td:nth-child(2) {
-    font-family: "Libre Barcode 39 Text";
-    font-size: 3em;
+    font-family: "Libre Barcode EAN13 Text";
+    font-size: 5em;
+    line-height: 1em;
+    text-align: center;
 }
 
 #editDialog {
