@@ -136,7 +136,7 @@
         let warehouse = Number(warehouseInput.value);
 
         // validation
-        if (!validateInput(nameInput.value.trim(), eanInput.value.trim(), price, warehouse)) {
+        if (!validateInput(nameInput.value.trim(), eanInput.value.trim(), price, warehouse, null)) {
             return;
         }
 
@@ -218,7 +218,7 @@
                 let warehouse = Number(editWarehouseInput.value);
 
                 // validate
-                if (!validateInput(editNameInput.value.trim(), editEanInput.value.trim(), price, warehouse)) {
+                if (!validateInput(editNameInput.value.trim(), editEanInput.value.trim(), price, warehouse, object.ean)) {
                     return;
                 }
 
@@ -257,7 +257,7 @@
     }
 
     // helper for error checking
-    function validateInput(name, ean, price, warehouse) {
+    function validateInput(name, ean, price, warehouse, editEan) {
         let errors = [];
 
         // name
@@ -272,7 +272,7 @@
         if (isNaN(Number(ean))) {
             errors.push("Az EAN szám csak számokat tartalmazhat!");
         }
-        if (data.filter((x) => x.ean == ean).length != 0) {
+        if (data.filter((x) => x.ean == ean && x.ean != editEan).length != 0) {
             errors.push("Ezt az EAN számot már tartalmazza az egyik termék!");
         }
 
